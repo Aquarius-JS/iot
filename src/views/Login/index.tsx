@@ -1,11 +1,13 @@
 import "./index.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { Button, Flex, FloatButton } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
 import { GIT_URL } from "../../configs";
 
 export default function Login() {
+	const navigate = useNavigate();
 	const [account, setAccount] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	return (
@@ -45,7 +47,13 @@ export default function Login() {
 							}}
 						/>
 						<Flex gap="small">
-							<Button type="primary" size="middle">
+							<Button
+								type="primary"
+								size="middle"
+								onClick={() => {
+									navigate("/");
+								}}
+							>
 								登录
 							</Button>
 							<Button type="link" size="middle">

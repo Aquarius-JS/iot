@@ -1,11 +1,12 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "../views/Login";
 import NotFound from "../views/NotFound";
+import LayOut from "../views/Layout";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Navigate to="/home" />,
+		element: <LayOut />,
 	},
 	{
 		path: "/login",
