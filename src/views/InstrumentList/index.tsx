@@ -16,12 +16,17 @@ export default function InstrumentList() {
 					zIndex: 99,
 				}}
 			></Header>
-			<Content style={{ display: "flex", justifyContent: "space-around" }}>
+			<Content
+				style={{
+					display: "flex",
+					justifyContent: "flex-start",
+					flexWrap: "wrap",
+					gap: 10,
+					padding: 13,
+				}}
+			>
 				{data.map(item => (
-					<InstrumentInfo
-						info={item}
-						key={item.ai}
-					/>
+					<InstrumentInfo info={item} key={item.ai} />
 				))}
 			</Content>
 		</div>
