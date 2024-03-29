@@ -1,70 +1,48 @@
 import { Layout } from "antd";
 import { useState } from "react";
-import { Button } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { useNavigate, Outlet } from "react-router-dom";
+import { Menu, Watermark } from "antd";
+import { StockOutlined } from "@ant-design/icons";
 
-const { Header, Sider, Content, Footer } = Layout;
+const { Sider, Content } = Layout;
 
 export default function Index() {
-  const headerStyle: React.CSSProperties = {
-    textAlign: "center",
-    color: "#fff",
-    height: 64,
-    paddingInline: 48,
-    lineHeight: "64px",
-    backgroundColor: "#4096ff",
-  };
-
-  const contentStyle: React.CSSProperties = {
-    textAlign: "center",
-    minHeight: "80vh",
-    lineHeight: "120px",
-    color: "#fff",
-    backgroundColor: "#0958d9",
-  };
-
-  const footerStyle: React.CSSProperties = {
-    textAlign: "center",
-    color: "#fff",
-    backgroundColor: "#4096ff",
-  };
-
-  const [collapsed, setCollapsed] = useState(false);
-
-  return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Layout>
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          style={{ backgroundColor: "white" }}
-        >
-          Sider
-        </Sider>
-        <Layout>
-          <Header style={{ padding: 0, backgroundColor: "white" }}>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
-          </Header>
-          <Content style={contentStyle}>Content</Content>
-        </Layout>
-      </Layout>
-      <Footer style={footerStyle}>Footer</Footer>
-    </Layout>
-  );
+	const navigate = useNavigate();
+	const [collapsed, setCollapsed] = useState(false);
+	const items = [
+		{
+			key: "1",
+			label: "数据监控",
+			icon: <StockOutlined />,
+		},
+	];
+	return (
+		<Watermark content="iot 工业互联网" font={{ color: "rgba(0,0,0,0.05)" }}>
+			<Layout>
+				<Sider
+					collapsible
+					collapsed={collapsed}
+					collapsedWidth={50}
+					onCollapse={value => setCollapsed(value)}
+					width={150}
+					style={{ height: "100vh", position: "sticky", left: 0, top: 0 }}
+				>
+					<Menu
+						theme="dark"
+						defaultSelectedKeys={["1"]}
+						mode="inline"
+						items={items}
+						onClick={() => {
+							navigate("/instrument_list");
+						}}
+					/>
+				</Sider>
+				<Layout>
+					<Content style={{ minHeight: "80vh" }}>
+						<Outlet />
+					</Content>
+				</Layout>
+			</Layout>
+		</Watermark>
+	);
 }
