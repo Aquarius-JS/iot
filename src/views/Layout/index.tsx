@@ -1,19 +1,32 @@
 import { Layout } from "antd";
 import { useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Menu, Watermark } from "antd";
-import { StockOutlined } from "@ant-design/icons";
+import { ApiOutlined, DeploymentUnitOutlined, StockOutlined } from "@ant-design/icons";
 
 const { Sider, Content } = Layout;
 
 export default function Index() {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [collapsed, setCollapsed] = useState(false);
+	const [current, setCurrent] = useState(location.pathname);
+	console.log(location);
 	const items = [
 		{
-			key: "1",
+			key: "/instrument_list",
 			label: "数据监控",
 			icon: <StockOutlined />,
+		},
+		{
+			key: "/workshop",
+			label: "车间数据监控",
+			icon: <DeploymentUnitOutlined />,
+		},
+		{
+			key: "/equipment",
+			label: "设备管理",
+			icon: <ApiOutlined />,
 		},
 	];
 	return (
@@ -30,10 +43,11 @@ export default function Index() {
 					<Menu
 						theme="dark"
 						defaultSelectedKeys={["1"]}
-						mode="inline"
+						selectedKeys={[current]}
 						items={items}
-						onClick={() => {
-							navigate("/instrument_list");
+						onClick={e => {
+							navigate(e.key);
+							setCurrent(e.key);
 						}}
 					/>
 				</Sider>
