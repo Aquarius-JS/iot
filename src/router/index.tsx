@@ -3,7 +3,9 @@ import Login from "../views/Login";
 import NotFound from "../views/NotFound";
 import LayOut from "../views/Layout";
 import InstrumentList from "../views/InstrumentList";
+import WorkShop from "../views/WorkShop";
 import Equipment from "../views/EquipmentList";
+import NewPerson from "../views/NewPerson";
 
 const router = createBrowserRouter([
 	{
@@ -19,12 +21,16 @@ const router = createBrowserRouter([
 				element: <InstrumentList />,
 			},
 			{
-				path:"workshop",
-				element:<div>生产车间信息</div>
+				path: "workshop",
+				element: <WorkShop />,
 			},
 			{
 				path: "equipment",
 				element: <Equipment />,
+			},
+			{
+				path: "person_info/new",
+				element: <NewPerson />
 			},
 		],
 	},

@@ -2,7 +2,13 @@ import { Layout } from "antd";
 import { useState } from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Menu, Watermark } from "antd";
-import { ApiOutlined, DeploymentUnitOutlined, StockOutlined } from "@ant-design/icons";
+import {
+	ApiOutlined,
+	DeploymentUnitOutlined,
+	StockOutlined,
+	TeamOutlined,
+	UserAddOutlined,
+} from "@ant-design/icons";
 
 const { Sider, Content } = Layout;
 
@@ -28,6 +34,18 @@ export default function Index() {
 			label: "设备管理",
 			icon: <ApiOutlined />,
 		},
+		{
+			key: "/person_info",
+			label: "人员信息",
+			icon: <TeamOutlined />,
+			children: [
+				{
+					key: "/person_info/new",
+					label: "信息录入",
+					icon: <UserAddOutlined />,
+				},
+			],
+		},
 	];
 	return (
 		<Watermark content="iot 工业互联网" font={{ color: "rgba(0,0,0,0.05)" }}>
@@ -37,14 +55,15 @@ export default function Index() {
 					collapsed={collapsed}
 					collapsedWidth={50}
 					onCollapse={value => setCollapsed(value)}
-					width={150}
+					width={180}
 					style={{ height: "100vh", position: "sticky", left: 0, top: 0 }}
 				>
 					<Menu
 						theme="dark"
-						defaultSelectedKeys={["1"]}
+						defaultSelectedKeys={["/person_info"]}
 						selectedKeys={[current]}
 						items={items}
+						mode="inline"
 						onClick={e => {
 							navigate(e.key);
 							setCurrent(e.key);
