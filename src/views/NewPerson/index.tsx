@@ -1,12 +1,30 @@
 import { ExclamationOutlined } from "@ant-design/icons";
-import { Button, Input, Tag } from "antd";
+import { Button, Input, Tag, notification } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function NewPerson() {
+	const [api, contextHolder] = notification.useNotification();
 	const videoEl = useRef(null);
 	const wrapper = useRef(null);
-
+	const [number, setNumber] = useState();
+	const [name, setName] = useState();
+	const [remark, setRemark] = useState();
+	const registerCB = () => {
+		setTimeout(() => {
+			clearForm();
+			api.info({
+				message: `录入成功`,
+				placement: "top",
+			});
+		}, 1000);
+	};
+	const clearForm = () => {
+		setNumber(null);
+		setName(null);
+		setRemark(null);
+		wrapper.current.innerHTML = "";
+	};
 	const shoot = () => {
 		if (!videoEl || !wrapper) return;
 		console.log(wrapper.current);
@@ -40,7 +58,7 @@ export default function NewPerson() {
 			}
 		}
 		checkCamera();
-	});
+	}, []);
 	return (
 		<div
 			style={{
@@ -49,6 +67,7 @@ export default function NewPerson() {
 				alignItems: "center",
 			}}
 		>
+			{contextHolder}
 			<div
 				style={{
 					display: "flex",
@@ -82,10 +101,31 @@ export default function NewPerson() {
 					padding: "20px 0",
 				}}
 			>
-				<Input addonBefore="No." placeholder="输入工号" />
-				<Input addonBefore="姓名" placeholder="输入姓名" />
-				<TextArea placeholder="备注" autoSize={{ minRows: 1, maxRows: 5 }} />
-				<Button type="primary" block>
+				<Input
+					addonBefore="No."
+					placeholder="输入工号"
+					value={number}
+					onChange={e => {
+						setNumber(e.target.value);
+					}}
+				/>
+				<Input
+					addonBefore="姓名"
+					placeholder="输入姓名"
+					value={name}
+					onInput={e => {
+						setName(e.target.value);
+					}}
+				/>
+				<TextArea
+					placeholder="备注"
+					autoSize={{ minRows: 1, maxRows: 5 }}
+					value={remark}
+					onChange={e => {
+						setRemark(e.target.value);
+					}}
+				/>
+				<Button type="primary" block onClick={registerCB}>
 					录入
 				</Button>
 				<Tag icon={<ExclamationOutlined />} bordered={false}>
