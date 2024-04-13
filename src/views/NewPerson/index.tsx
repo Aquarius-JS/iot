@@ -1,10 +1,11 @@
 import { ExclamationOutlined } from "@ant-design/icons";
-import { Button, Input, Tag, notification } from "antd";
+import { Button, Input, Tag, notification, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef, useState } from "react";
 
 export default function NewPerson() {
-	const [api, contextHolder] = notification.useNotification();
+	// const [api, contextHolder] = notification.useNotification();
+	const [messageApi, contextHolder] = message.useMessage();
 	const videoEl = useRef(null);
 	const wrapper = useRef(null);
 	const [number, setNumber] = useState();
@@ -13,9 +14,9 @@ export default function NewPerson() {
 	const registerCB = () => {
 		setTimeout(() => {
 			clearForm();
-			api.info({
-				message: `录入成功`,
-				placement: "top",
+			messageApi.open({
+				type: "success",
+				content: "录入成功",
 			});
 		}, 1000);
 	};
