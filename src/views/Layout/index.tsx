@@ -8,6 +8,7 @@ import {
 	StockOutlined,
 	TeamOutlined,
 	UserAddOutlined,
+	VideoCameraOutlined,
 } from "@ant-design/icons";
 
 const { Sider, Content } = Layout;
@@ -43,6 +44,11 @@ export default function Index() {
 					key: "/person_info/new",
 					label: "信息录入",
 					icon: <UserAddOutlined />,
+				},
+				{
+					key: "/person_info/monitoring",
+					label: "车间监控",
+					icon: <VideoCameraOutlined />,
 				},
 			],
 		},

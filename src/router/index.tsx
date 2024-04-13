@@ -6,6 +6,7 @@ import InstrumentList from "../views/InstrumentList";
 import WorkShop from "../views/WorkShop";
 import Equipment from "../views/EquipmentList";
 import NewPerson from "../views/NewPerson";
+import Monitoring from "../views/Monitoring";
 
 const router = createBrowserRouter([
 	{
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "person_info/new",
-				element: <NewPerson />
+				element: <NewPerson />,
+			},
+			{
+				path: "person_info/monitoring",
+				element: <Monitoring />,
 			},
 		],
 	},
