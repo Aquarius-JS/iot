@@ -22,14 +22,14 @@ export default function Index() {
 	console.log(location);
 	const items = [
 		{
-			key: "/instrument_list",
+			key: "/workshop",
 			label: "数据监控",
-			icon: <StockOutlined />,
+			icon: <DeploymentUnitOutlined />,
 		},
 		{
-			key: "/workshop",
-			label: "车间数据监控",
-			icon: <DeploymentUnitOutlined />,
+			key: "/instrument_list",
+			label: "数据报表",
+			icon: <StockOutlined />,
 		},
 		{
 			key: "/equipment",

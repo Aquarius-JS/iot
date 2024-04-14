@@ -29,11 +29,10 @@ export default function Attendance() {
 			inputSize: 416, // 输入的数据源大小，这个值越小，处理速度越快。常用值：128, 160, 224, 320, 416, 512, 608
 			scoreThreshold: 0.3, // 用于过滤边界的分数阈值，大于等于这个值才被认为检测到了人脸，然后返回一个detection对象
 		});
+		let _t: any = null;
 		async function onPlay() {
-			let _t;
 			if (_t) clearTimeout(_t);
 			const videoEl = document.getElementById("video") as any;
-			const testImg = document.getElementById("te") as any;
 			if (videoEl.paused || videoEl.ended) {
 				setTimeout(() => onPlay());
 				return;
@@ -43,20 +42,20 @@ export default function Attendance() {
 				.withFaceLandmarks()
 				.withFaceDescriptors();
 			if (result.length === 0) {
-				_t = setTimeout(() => onPlay(), 3000);
+				_t = setTimeout(() => onPlay(), 2000);
 				return;
 			}
 			const faceMatcher = new faceapi.FaceMatcher(result);
-			let bestMatcher = [1, null];
+			let bestMatcher: Array<any> = [1, null];
 			for (let i of ["张培.jpg", "张鹏.png"]) {
 				const img = document.createElement("img");
 				img.src = `/${i}`;
 				img.id = i;
-				const test = await faceapi
+				const refer: any = await faceapi
 					.detectSingleFace(img)
 					.withFaceLandmarks()
 					.withFaceDescriptor();
-				const best = faceMatcher.findBestMatch(test?.descriptor);
+				const best = faceMatcher.findBestMatch(refer?.descriptor);
 				bestMatcher =
 					bestMatcher[0] > best.distance ? [best.distance, i.split(".")[0]] : bestMatcher;
 			}
@@ -66,10 +65,15 @@ export default function Attendance() {
 					type: "success",
 					content,
 				});
+				_t = setTimeout(() => onPlay(), 7000);
+				return;
 			}
-			_t = setTimeout(() => onPlay(), 3000);
+			_t = setTimeout(() => onPlay(), 2000);
 		}
 		onPlay();
+		return () => {
+			clearTimeout(_t);
+		};
 	}, []);
 	return (
 		<div style={{ padding: "20px" }}>
